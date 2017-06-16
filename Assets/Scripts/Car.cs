@@ -22,7 +22,7 @@ public class Car : MonoBehaviour {
 
 
 	void Start () {
-		arrow = transform.FindChild("Arrow").gameObject;
+		arrow = transform.Find("Arrow").gameObject;
 		Debug.Log ("Car Start");
 
 //		Debug.Log ("Path Found"  + path[0].ToString());
@@ -79,8 +79,8 @@ public class Car : MonoBehaviour {
 
 	IEnumerator Exit(){
 		GameManager.instance.score++;
-		audio.PlayOneShot (chime);
-		this.renderer.enabled = false;
+		GetComponent<AudioSource>().PlayOneShot (chime);
+		this.GetComponent<Renderer>().enabled = false;
 		reachedExit = true;
 		this.targetNode.isOccupied = false;
 		targetNode.occupant = null;
@@ -95,14 +95,14 @@ public class Car : MonoBehaviour {
 		dest = forceDest;
 		if (dest==-1) dest = Random.Range (0,GameManager.instance.exits.Count);
 		if (dest < GameManager.instance.colors.Length) {
-						this.renderer.material.color = GameManager.instance.colors [dest];
+						this.GetComponent<Renderer>().material.color = GameManager.instance.colors [dest];
 				} else {
-						this.renderer.material.color = Color.black;
+						this.GetComponent<Renderer>().material.color = Color.black;
 				}
 		path = GraphSearch.BFS(this.targetNode, GameManager.instance.exits[dest]);
 
 		if (GameManager.instance.allowSound.Length > dest && GameManager.instance.allowSound [dest])
-						audio.enabled = true;
+						GetComponent<AudioSource>().enabled = true;
 	}
 
 	public Node NextNode(){
@@ -122,7 +122,7 @@ public class Car : MonoBehaviour {
 
 				} while (blinking);
 
-		arrow.renderer.enabled = true;
+		arrow.GetComponent<Renderer>().enabled = true;
 	}
 	
 }

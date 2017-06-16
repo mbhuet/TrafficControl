@@ -10,7 +10,7 @@ public class IntersectionController : MonoBehaviour {
 	bool flippable = true;
 
 	void Awake(){
-		arrow = transform.FindChild("Arrow").gameObject;
+		arrow = transform.Find("Arrow").gameObject;
 	}
 
 	public void Switch(){
